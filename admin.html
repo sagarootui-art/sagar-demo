@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Sagar.ae</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --bg-dark: #050505;
+            --sidebar-bg: #0a0a0a;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.6);
+            --accent: #3b82f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: var(--sidebar-bg);
+            border-right: 1px solid var(--border);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            letter-spacing: 2px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background: var(--card-bg);
+            color: var(--text-primary);
+        }
+
+        .nav-item i {
+            width: 20px;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Views */
+        .view-section {
+            display: none;
+        }
+
+        .view-section.active {
+            display: block;
+        }
+
+        /* Dashboard Widgets */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            border-radius: 15px;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 0.5rem 0;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Forms */
+        .admin-form {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            max-width: 600px;
+            margin-bottom: 3rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .form-input,
+        .form-select {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border);
+            padding: 0.8rem;
+            color: #fff;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: var(--accent);
+        }
+
+        .btn-submit {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+        }
+
+        .btn-submit:hover {
+            opacity: 0.9;
+        }
+
+        /* Table */
+        .table-container {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 1.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .status {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status.completed {
+            background: rgba(0, 255, 100, 0.1);
+            color: #00ff64;
+        }
+
+        .status.pending {
+            background: rgba(255, 200, 0, 0.1);
+            color: #ffc800;
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div class="logo">SAHANAUJ</div>
+        <nav>
+            <div class="nav-item active" onclick="switchView('dashboard', this)"><i data-lucide="layout-dashboard"></i>
+                Dashboard</div>
+            <div class="nav-item" onclick="switchView('products', this)"><i data-lucide="package"></i> Manage Products
+            </div>
+            <div class="nav-item" onclick="switchView('users', this)"><i data-lucide="users"></i> Users</div>
+            <a href="index.html" class="nav-item" style="margin-top: 3rem; color: #ff4444;"><i
+                    data-lucide="log-out"></i> Logout</a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <header class="header">
+            <h1 id="page-title">Dashboard Overview</h1>
+            <div class="user-profile">
+                <span>Admin User</span>
+                <div class="avatar">A</div>
+            </div>
+        </header>
+
+        <!-- DASHBOARD VIEW -->
+        <div id="view-dashboard" class="view-section active">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Total Revenue</div>
+                    <div class="stat-value">$12,450</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Active Users</div>
+                    <div class="stat-value">1,203</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Downloads</div>
+                    <div class="stat-value">8,540</div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <h2>Recent Orders</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>User</th>
+                            <th>Product</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#ORD-4923</td>
+                            <td>mark.doe@email.com</td>
+                            <td>FlowState XML v4</td>
+                            <td>$45.00</td>
+                            <td><span class="status completed">Completed</span></td>
+                        </tr>
+                        <tr>
+                            <td>#ORD-4922</td>
+                            <td>jessica.s@email.com</td>
+                            <td>Unity Forge Kit</td>
+                            <td>$60.00</td>
+                            <td><span class="status pending">Processing</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- PRODUCTS VIEW -->
+        <div id="view-products" class="view-section">
+            <div style="display: flex; gap: 2rem;">
+                <div style="flex: 1;">
+                    <div class="admin-form">
+                        <h2 style="margin-bottom: 2rem;">Upload New Product</h2>
+                        <div class="form-group">
+                            <label class="form-label">Product Name</label>
+                            <input type="text" id="p-name" class="form-input" placeholder="e.g. Cinematic LUTS Pack">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Category</label>
+                            <select id="p-category" class="form-select">
+                                <option value="editing">Editing Universe</option>
+                                <option value="unity">Unity Forge</option>
+                                <option value="unreal">Unreal Engine 5</option>
+                                <option value="premiere">Premiere Prime</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Price</label>
+                            <input type="text" id="p-price" class="form-input" placeholder="$0.00">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Tag (Badge)</label>
+                            <input type="text" id="p-tag" class="form-input" placeholder="e.g. NEW, SALE">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Image URL (For Demo)</label>
+                            <input type="text" id="p-img" class="form-input"
+                                value="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80">
+                        </div>
+                        <button class="btn-submit" onclick="addProduct()">Upload Product</button>
+                    </div>
+                </div>
+
+                <div style="flex: 1;">
+                    <div class="table-container">
+                        <h2 style="margin-bottom: 1rem;">Live Products</h2>
+                        <table id="product-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Category</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                            <tbody id="product-list-body">
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- USERS VIEW (Placeholder) -->
+        <div id="view-users" class="view-section">
+            <h2>User Management Coming Soon...</h2>
+        </div>
+
+    </main>
+
+    <script>
+        lucide.createIcons();
+
+        function switchView(viewId, navEl) {
+            // Hide all views
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+            // Show target view
+            document.getElementById('view-' + viewId).classList.add('active');
+
+            // Update Nav
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            navEl.classList.add('active');
+
+            // Update Title
+            const titles = {
+                'dashboard': 'Dashboard Overview',
+                'products': 'Product Management',
+                'users': 'User Lists'
+            };
+            document.getElementById('page-title').innerText = titles[viewId];
+        }
+
+        // --- PRODUCT MANAGEMENT LOGIC ---
+
+        function loadProducts() {
+            // Get mock default products (simplified for list) or just show added ones
+            const customProducts = JSON.parse(localStorage.getItem('sagar_custom_products') || '[]');
+            const listBody = document.getElementById('product-list-body');
+            listBody.innerHTML = '';
+
+            if (customProducts.length === 0) {
+                listBody.innerHTML = '<tr><td colspan="3" style="color:var(--text-secondary)">No custom products added yet.</td></tr>';
+            } else {
+                customProducts.forEach(p => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `<td>${p.title}</td><td>${p.category}</td><td>${p.price}</td>`;
+                    listBody.appendChild(tr);
+                });
+            }
+        }
+
+        function addProduct() {
+            const name = document.getElementById('p-name').value;
+            const category = document.getElementById('p-category').value;
+            const price = document.getElementById('p-price').value;
+            const tag = document.getElementById('p-tag').value;
+            const img = document.getElementById('p-img').value;
+
+            if (!name || !price) {
+                alert("Please fill in Name and Price");
+                return;
+            }
+
+            const newProduct = {
+                category: category,
+                title: name,
+                price: price,
+                tag: tag || 'NEW',
+                img: img
+            };
+
+            // Save to LocalStorage
+            const currentProducts = JSON.parse(localStorage.getItem('sagar_custom_products') || '[]');
+            currentProducts.push(newProduct);
+            localStorage.setItem('sagar_custom_products', JSON.stringify(currentProducts));
+
+            alert('Product Uploaded Successfully!');
+
+            // Clear form
+            document.getElementById('p-name').value = '';
+            document.getElementById('p-price').value = '';
+
+            loadProducts();
+        }
+
+        // Init
+        loadProducts();
+
+    </script>
+</body>
+
+</html>

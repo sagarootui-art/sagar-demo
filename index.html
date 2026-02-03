@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAGAR.AE| Elite Creative Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/split-type"></script>
+</head>
+
+<body>
+    <!-- Premium Loader -->
+    <div class="loader-wrap">
+        <div class="loader-text">SAGAR DENRE</div>
+    </div>
+
+    <!-- Background Noise -->
+    <div class="noise-overlay"></div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor">
+        <div class="cursor-dot"></div>
+    </div>
+
+    <!-- Navigation -->
+    <header>
+        <nav class="nav-pill">
+            <a href="#" class="nav-link active" onclick="navigateTo('home')">Home</a>
+            <a href="#" class="nav-link" onclick="navigateTo('products')">Products</a>
+            <a href="#" class="nav-link" onclick="navigateTo('reviews')">Reviews</a>
+            <a href="#" class="nav-link" onclick="navigateTo('faq')">FAQ</a>
+            <a href="#" class="nav-link" onclick="navigateTo('contact')">Contact</a>
+            <a href="admin.html" class="nav-link">Admin</a>
+            <a href="#" class="nav-link nav-btn-highlight" onclick="navigateTo('login')">Login / Sign Up</a>
+        </nav>
+    </header>
+
+    <main id="app">
+        <!-- HOME SECTION -->
+        <section id="home" class="hero page-section">
+            <div class="hero-glow"></div>
+            <p class="hero-tagline">Premium Creative Assets v5.0</p>
+            <h1 class="hero-title">SAGAR<br>SAHANAJ</h1>
+            <p class="hero-description">The ultimate ecosystem for professional developers.
+                AND HOSPITALS Secure the highest quality XMLs, Project Files, and Unreal environments.</p>
+
+            <div class="hero-btns">
+                <a href="#" class="btn-primary" onclick="navigateTo('products')">Explore Products</a>
+                <a href="#" class="btn-secondary" onclick="navigateTo('login')">Get Access</a>
+            </div>
+
+            <!-- Quick Category Access -->
+            <div class="category-actions">
+                <div class="cat-btn" onclick="openCategory('editing')">
+                    <span>🎬</span>
+                    <span>Editing</span>
+                </div>
+                <div class="cat-btn" onclick="openCategory('unity')">
+                    <span>🎮</span>
+                    <span>Unity</span>
+                </div>
+                <div class="cat-btn" onclick="openCategory('unreal')">
+                    <span>🧠</span>
+                    <span>Unreal</span>
+                </div>
+                <div class="cat-btn" onclick="openCategory('premiere')">
+                    <span>🎥</span>
+                    <span>Premiere</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRODUCTS SECTION -->
+        <section id="products" class="page-section" style="display:none; padding-top: 150px;">
+            <div class="hero-glow" style="top:0;"></div>
+            <div style="text-align: center; margin-bottom: 4rem;">
+                <h2 class="hero-title" style="font-size: 4rem;">OUR PRODUCTS</h2>
+                <p class="hero-description">Browse our premium collection of creative assets.</p>
+            </div>
+
+            <!-- Reusing the category actions for specific drill-down -->
+            <div class="category-actions" style="margin-top: 0;">
+                <div class="cat-btn" onclick="openCategory('editing')">
+                    <span>🎬</span>
+                    <span>Editing Packs</span>
+                </div>
+                <div class="cat-btn" onclick="openCategory('unity')">
+                    <span>🎮</span>
+                    <span>Unity Projects</span>
+                </div>
+                <div class="cat-btn" onclick="openCategory('unreal')">
+                    <span>🧠</span>
+                    <span>Unreal Engine</span>
+                </div>
+                <div class="cat-btn" onclick="openCategory('premiere')">
+                    <span>🎥</span>
+                    <span>Premiere Pro</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- REVIEWS SECTION -->
+        <section id="reviews" class="page-section reviews-section" style="display:none; padding-top: 150px;">
+            <div style="text-align: center; margin-bottom: 4rem;">
+                <h2 class="hero-title" style="font-size: 3.5rem;">TRUSTED BY CREATORS</h2>
+            </div>
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto;">
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p style="color: var(--text-secondary); margin-bottom: 1rem;">"The quality of the Unreal assets is
+                        unmatched. Saved me weeks of dev time."</p>
+                    <h4 style="color: #fff;">Alex Chen</h4>
+                    <span style="font-size: 0.8rem; color: #666;">Game Developer</span>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p style="color: var(--text-secondary); margin-bottom: 1rem;">"Transformative for my editing
+                        workflow. The XMLs are clean and pro."</p>
+                    <h4 style="color: #fff;">Sarah Jones</h4>
+                    <span style="font-size: 0.8rem; color: #666;">Video Editor</span>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p style="color: var(--text-secondary); margin-bottom: 1rem;">"Best investment for my studio. The
+                        support is also top tier."</p>
+                    <h4 style="color: #fff;">Mike Ross</h4>
+                    <span style="font-size: 0.8rem; color: #666;">Creative Director</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ SECTION -->
+        <section id="faq" class="page-section" style="display:none; padding-top: 150px;">
+            <div style="text-align: center; margin-bottom: 4rem;">
+                <h2 class="hero-title" style="font-size: 3.5rem;">FAQ</h2>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">How do I download files? <i data-lucide="chevron-down"></i></div>
+                    <div class="faq-answer">Once you purchase, you will receive an instant download link via email and
+                        in your dashboard.</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">Is payment secure? <i data-lucide="chevron-down"></i></div>
+                    <div class="faq-answer">Yes, we use Stripe and PayPal for 100% secure encrypted transactions.</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">Can I use projects commercially? <i data-lucide="chevron-down"></i></div>
+                    <div class="faq-answer">Yes, all our assets come with a commercial license for your projects.</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">Do you offer refunds? <i data-lucide="chevron-down"></i></div>
+                    <div class="faq-answer">Due to the nature of digital goods, refunds are handled on a case-by-case
+                        basis if files are defective.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="page-section" style="display:none; padding-top: 150px;">
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h2 class="hero-title" style="font-size: 3.5rem; text-align: left;">GET IN TOUCH</h2>
+                    <p class="hero-description" style="margin: 0 0 2rem 0;">Have questions or need support? We are here
+                        to help you.</p>
+                    <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                        <a href="#" style="color: #fff;"><i data-lucide="twitter"></i></a>
+                        <a href="#" style="color: #fff;"><i data-lucide="instagram"></i></a>
+                        <a href="#" style="color: #fff;"><i data-lucide="mail"></i></a>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <div class="form-group">
+                        <input type="text" class="form-input" placeholder="Your Name">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-input" placeholder="Your Email">
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-input" rows="5" placeholder="Message"></textarea>
+                    </div>
+                    <button class="btn-primary" style="width: 100%; border:none;">Send Message</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- LOGIN SECTION -->
+        <section id="login" class="page-section" style="display:none;">
+            <div class="login-container">
+                <div class="login-card">
+                    <h2 style="font-size: 2.5rem; margin-bottom: 2rem;">Welcome Back</h2>
+                    <div class="form-group">
+                        <input type="email" class="form-input" placeholder="Email Address">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-input" placeholder="Password">
+                    </div>
+                    <button class="btn-primary" style="width: 100%; border:none; margin-top: 1rem;"
+                        onclick="window.location.href='admin.html'">Login</button>
+                    <div style="margin-top: 1.5rem;">
+                        <a href="#" style="color: var(--text-secondary); font-size: 0.8rem;">Forgot Password?</a>
+                    </div>
+                    <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--glass-border);">
+                        <p style="color: var(--text-secondary); margin-bottom: 1rem;">Or continue with</p>
+                        <button class="btn-secondary"
+                            style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                            Google
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAYMENT SECTION -->
+        <section id="payment" class="page-section" style="display:none; padding-top: 150px;">
+            <div class="login-container" style="height: auto; min-height: 80vh;">
+                <div class="login-card" style="max-width: 600px;">
+                    <h2 style="font-size: 2.5rem; margin-bottom: 2rem;">Secure Checkout</h2>
+
+                    <div
+                        style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; text-align: left;">
+                        <h3 id="checkout-item-title" style="margin-bottom: 0.5rem;">Product Name</h3>
+                        <p id="checkout-item-price"
+                            style="font-size: 1.5rem; color: var(--acc-secondary); font-weight: 700;">$0.00</p>
+                    </div>
+
+                    <h4 style="text-align: left; margin-bottom: 1rem;">Select Payment Method</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 2rem;">
+                        <div class="cat-btn"
+                            style="padding: 1rem; min-width: auto; height: 100px; justify-content: center;"
+                            onclick="selectPaymentMethod(this)">
+                            <span>💳</span>
+                            <span style="font-size: 0.7rem;">Stripe</span>
+                        </div>
+                        <div class="cat-btn"
+                            style="padding: 1rem; min-width: auto; height: 100px; justify-content: center;"
+                            onclick="selectPaymentMethod(this)">
+                            <span>🅿️</span>
+                            <span style="font-size: 0.7rem;">PayPal</span>
+                        </div>
+                        <div class="cat-btn"
+                            style="padding: 1rem; min-width: auto; height: 100px; justify-content: center;"
+                            onclick="selectPaymentMethod(this)">
+                            <span>🔁</span>
+                            <span style="font-size: 0.7rem;">Razorpay</span>
+                        </div>
+                    </div>
+
+                    <button class="btn-primary" style="width: 100%; border:none;" onclick="processPayment()">Complete
+                        Purchase</button>
+                    <button class="btn-secondary" style="width: 100%; margin-top: 1rem; border:none;"
+                        onclick="history.back()">Cancel</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SUCCESS OVERLAY -->
+        <div id="success-overlay"
+            style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; display: none; align-items: center; justify-content: center; flex-direction: column;">
+            <div style="font-size: 5rem; margin-bottom: 2rem;">🎉</div>
+            <h2 style="font-size: 3rem; margin-bottom: 1rem; color: #00ff64;">Payment Successful</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 3rem; font-size: 1.2rem;">Your download has started
+                automatically.</p>
+            <button class="btn-primary" onclick="closeSuccess()">Back to Hub</button>
+        </div>
+
+        <!-- Dynamic Product View (Hidden Overlay) -->
+        <div id="view" class="view-container">
+            <div class="view-header">
+                <div class="back-btn" onclick="closeCategory()">
+                    <i data-lucide="arrow-left" style="width:16px;"></i> Return
+                </div>
+                <h1 id="view-title" class="view-title">Category</h1>
+                <p id="view-desc"
+                    style="color: var(--text-secondary); margin-top: 1.5rem; font-size: 1.2rem; max-width: 700px;"></p>
+            </div>
+
+            <div id="asset-grid" class="asset-grid">
+                <!-- Data-driven cards injected via main.js -->
+            </div>
+        </div>
+    </main>
+
+    <script src="particles.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
